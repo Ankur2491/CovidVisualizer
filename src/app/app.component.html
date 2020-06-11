@@ -1,0 +1,63 @@
+<nav class="navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">Covid-19 Analysis</a>
+</nav>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-12">Welcome to Covid-19 Analysis Project</h1>
+    <p class="lead">This is a project to track the covid-19 cases worldwide.</p>
+  </div>
+</div>
+<form class="form-inline" role="form" [formGroup]="myForm" (ngSubmit)="onSubmit(myForm)">
+  <label for="country">Country: </label>
+  <select formControlName="country" id="country">
+    <option>Select Country</option>
+    <option *ngFor="let country of countries">{{country}}</option>
+  </select>
+  <label for="state">State: </label>
+  <select formControlName="state" (change)="onStateChange($event)" id="state">
+    <option>Select State</option>
+    <option *ngFor="let state of states">{{state}}</option>
+  </select>
+  <label for="district">District: </label>
+  <select formControlName="district" id="district">
+    <option>Select District</option>
+    <option *ngFor="let district of districts">{{district}}</option>
+  </select>
+  <button class="btn btn-link" type="submit" data-toggle="modal" data-target="#exampleModalLong">
+    Show Data
+  </button>
+</form>
+<!-- <div class="card card-body">
+      <div *ngFor="let district of reportData.districts">
+        <Strong>{{district}}:</Strong>
+        <p><strong>Total Active Cases:</strong> {{reportData.districtData[district]['active']}}</p>
+        <p><strong>Total Confirmed Cases:</strong> {{reportData.districtData[district]['confirmed']}}</p>
+        <p><strong>Total Deceased Cases:</strong> {{reportData.districtData[district]['deceased']}}</p>
+        <p><strong>Total Recovered Cases:</strong> {{reportData.districtData[district]['recovered']}}</p>
+        <hr/>
+        </div>
+    </div> -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngFor="let district of reportData.districts">
+          <Strong>{{district}}:</Strong>
+          <p><strong>Total Active Cases:</strong> {{reportData.districtData[district]['active']}}</p>
+          <p><strong>Total Confirmed Cases:</strong> {{reportData.districtData[district]['confirmed']}}</p>
+          <p><strong>Total Deceased Cases:</strong> {{reportData.districtData[district]['deceased']}}</p>
+          <p><strong>Total Recovered Cases:</strong> {{reportData.districtData[district]['recovered']}}</p>
+          <hr />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-chart [mainData]="mainData" [responseData]="responseData" [colorScheme]="colorScheme"></app-chart>
